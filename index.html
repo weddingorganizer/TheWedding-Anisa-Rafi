@@ -27,17 +27,21 @@
       background: var(--cream);
       color: var(--charcoal);
       font-family: var(--sans);
+      -webkit-text-size-adjust: 100%;
+      touch-action: pan-y;
     }
 
-    /* ── SLIDER ── */
     .slider {
-      width: 100%; height: 100vh;
+      width: 100%;
+      height: 100svh;
       display: flex;
       transition: transform 0.9s cubic-bezier(0.77, 0, 0.175, 1);
+      will-change: transform;
     }
 
     .slide {
-      min-width: 100vw; height: 100vh;
+      min-width: 100vw;
+      height: 100svh;
       position: relative;
       display: flex;
       align-items: center;
@@ -45,50 +49,51 @@
       overflow: hidden;
     }
 
-    /* ── NAV DOTS ── */
     .dots {
       position: fixed;
-      right: 2rem;
+      right: 1rem;
       top: 50%;
       transform: translateY(-50%);
       display: flex;
       flex-direction: column;
-      gap: .9rem;
+      gap: .7rem;
       z-index: 100;
     }
     .dot {
-      width: 8px; height: 8px;
+      width: 7px;
+      height: 7px;
       border-radius: 50%;
       background: var(--blush);
-      border: 1.5px solid var(--rose);
+      border: 1.2px solid var(--rose);
       cursor: pointer;
       transition: background .3s, transform .3s;
     }
-    .dot.active { background: var(--rose); transform: scale(1.4); }
+    .dot.active { background: var(--rose); transform: scale(1.35); }
 
-    /* ── ARROWS ── */
     .arrow {
       position: fixed;
-      bottom: 2.2rem;
-      background: none;
-      border: 1.5px solid var(--rose);
+      bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
+      background: rgba(255,255,255,.12);
+      backdrop-filter: blur(4px);
+      border: 1.2px solid var(--rose);
       color: var(--rose);
-      width: 44px; height: 44px;
+      width: 34px;
+      height: 34px;
       border-radius: 50%;
-      font-size: 1.2rem;
+      font-size: .95rem;
       cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       z-index: 100;
-      transition: background .25s, color .25s;
+      transition: background .25s, color .25s, transform .2s;
     }
     .arrow:hover { background: var(--rose); color: var(--white); }
-    .arrow.prev { left: calc(50% - 52px); }
+    .arrow:active { transform: scale(.96); }
+    .arrow.prev { left: calc(50% - 42px); }
     .arrow.next { left: calc(50% + 8px); }
-    .arrow:disabled { opacity: .3; pointer-events: none; }
+    .arrow:disabled { opacity: .28; pointer-events: none; }
 
-    /* ══════════════════════════════
-       SLIDE 1 – HERO
-    ══════════════════════════════ */
     .slide-1 { background: var(--cream); }
 
     .s1-decor {
@@ -117,6 +122,7 @@
       position: relative;
       text-align: center;
       z-index: 2;
+      padding: 0 1rem;
     }
 
     .s1-label {
@@ -125,18 +131,18 @@
       letter-spacing: .28em;
       text-transform: uppercase;
       color: var(--sage);
-      margin-bottom: 1.4rem;
+      margin-bottom: 1.2rem;
     }
 
-    /* Photo frame pair */
     .s1-photos {
       display: flex;
-      gap: 1.6rem;
+      gap: 1.2rem;
       justify-content: center;
-      margin-bottom: 1.8rem;
+      margin-bottom: 1.6rem;
     }
     .s1-photo {
-      width: 140px; height: 180px;
+      width: 140px;
+      height: 180px;
       border-radius: 70px 70px 4px 4px;
       overflow: hidden;
       border: 3px solid var(--blush);
@@ -145,15 +151,16 @@
       position: relative;
     }
     .s1-photo:first-child { transform: rotate(-3deg) translateY(8px); }
-    .s1-photo:last-child  { transform: rotate(3deg)  translateY(8px); }
+    .s1-photo:last-child  { transform: rotate(3deg) translateY(8px); }
     .s1-photo img {
-      width: 100%; height: 100%;
+      width: 100%;
+      height: 100%;
       object-fit: cover;
     }
 
     .s1-names {
       font-family: var(--serif);
-      font-size: clamp(2.8rem, 7vw, 5.2rem);
+      font-size: clamp(2.6rem, 7vw, 5.2rem);
       font-weight: 300;
       line-height: 1.05;
       color: var(--charcoal);
@@ -166,24 +173,22 @@
       display: block;
       font-size: .55em;
       color: var(--gold);
-      margin: .1em 0;
+      margin: .08em 0;
     }
     .s1-date {
       font-family: var(--sans);
-      font-size: .8rem;
+      font-size: .78rem;
       letter-spacing: .18em;
       color: var(--sage);
-      margin-top: 1.4rem;
+      margin-top: 1.2rem;
     }
     .s1-divider {
-      width: 48px; height: 1px;
+      width: 48px;
+      height: 1px;
       background: var(--blush);
-      margin: 1rem auto;
+      margin: .9rem auto;
     }
 
-    /* ══════════════════════════════
-       SLIDE 2 – OUR STORY
-    ══════════════════════════════ */
     .slide-2 {
       background: var(--charcoal);
       color: var(--cream);
@@ -194,17 +199,19 @@
       grid-template-columns: 1fr 1fr;
       height: 100%;
       width: 100%;
+      min-height: 0;
     }
     .s2-photo-side {
       position: relative;
       overflow: hidden;
+      min-height: 0;
     }
     .s2-photo-side img {
-      width: 100%; height: 100%;
+      width: 100%;
+      height: 100%;
       object-fit: cover;
       opacity: .85;
     }
-
     .s2-overlay {
       position: absolute;
       inset: 0;
@@ -216,13 +223,14 @@
       flex-direction: column;
       justify-content: center;
       padding: 5vw 6vw 5vw 4vw;
+      min-height: 0;
     }
     .s2-eyebrow {
       font-size: .68rem;
       letter-spacing: .3em;
       text-transform: uppercase;
       color: var(--gold);
-      margin-bottom: 1.2rem;
+      margin-bottom: 1.1rem;
     }
     .s2-heading {
       font-family: var(--serif);
@@ -230,44 +238,54 @@
       font-weight: 300;
       line-height: 1.15;
       color: var(--cream);
-      margin-bottom: 1.6rem;
+      margin-bottom: 1.4rem;
     }
     .s2-heading em { font-style: italic; color: var(--blush); }
     .s2-body {
       font-size: .9rem;
-      line-height: 1.9;
+      line-height: 1.85;
       color: #b8b0a6;
       max-width: 38ch;
+      overflow-wrap: break-word;
     }
     .s2-body p + p { margin-top: 1em; }
 
-    /* ══════════════════════════════
-       SLIDE 3 – EVENT DETAILS
-    ══════════════════════════════ */
     .slide-3 { background: var(--cream); }
 
     .s3-inner {
       text-align: center;
-      padding: 0 5vw;
+      padding: 2rem 5vw;
       max-width: 900px;
+      width: 100%;
+      max-height: 100%;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
     }
+    .s3-inner::-webkit-scrollbar { display: none; }
+
     .s3-top-photo {
-      width: 240px; height: 160px;
+      width: 240px;
+      height: 160px;
       border-radius: 12px;
       overflow: hidden;
-      margin: 0 auto 2rem;
+      margin: 0 auto 1.7rem;
       border: 3px solid var(--blush);
       box-shadow: 0 12px 40px rgba(184,90,106,.18);
       background: #e8ddd4;
     }
-    .s3-top-photo img { width: 100%; height: 100%; object-fit: cover; }
+    .s3-top-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
 
     .s3-heading {
       font-family: var(--serif);
       font-size: clamp(1.8rem, 4vw, 3rem);
       font-weight: 300;
       color: var(--charcoal);
-      margin-bottom: 2.5rem;
+      margin-bottom: 2rem;
     }
     .s3-heading em { font-style: italic; color: var(--rose); }
 
@@ -280,11 +298,11 @@
       background: var(--white);
       border: 1px solid var(--blush);
       border-radius: 12px;
-      padding: 1.8rem 1.2rem;
+      padding: 1.6rem 1.1rem;
     }
     .s3-card-icon {
-      font-size: 1.6rem;
-      margin-bottom: .8rem;
+      font-size: 1.55rem;
+      margin-bottom: .75rem;
     }
     .s3-card-title {
       font-family: var(--sans);
@@ -292,11 +310,11 @@
       letter-spacing: .25em;
       text-transform: uppercase;
       color: var(--sage);
-      margin-bottom: .6rem;
+      margin-bottom: .55rem;
     }
     .s3-card-main {
       font-family: var(--serif);
-      font-size: 1.3rem;
+      font-size: 1.25rem;
       font-weight: 400;
       color: var(--charcoal);
     }
@@ -307,9 +325,6 @@
       line-height: 1.5;
     }
 
-    /* ══════════════════════════════
-       SLIDE 4 – CLOSING / RSVP
-    ══════════════════════════════ */
     .slide-4 {
       background: var(--rose);
       color: var(--white);
@@ -366,7 +381,6 @@
       margin-top: 2.5rem;
     }
 
-    /* ── PETAL DECOR (slide 4) ── */
     .petals {
       position: absolute;
       inset: 0;
@@ -375,7 +389,8 @@
     }
     .petal {
       position: absolute;
-      width: 12px; height: 18px;
+      width: 12px;
+      height: 18px;
       background: rgba(255,255,255,.12);
       border-radius: 50% 50% 50% 0 / 60% 60% 40% 40%;
       animation: fall linear infinite;
@@ -385,13 +400,142 @@
       100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
     }
 
-    /* ── RESPONSIVE ── */
     @media (max-width: 700px) {
-      .s2-inner { grid-template-columns: 1fr; }
-      .s2-photo-side { height: 260px; }
-      .s3-cards { grid-template-columns: 1fr; }
-      .dots { right: .8rem; }
-      .s1-photo { width: 110px; height: 145px; }
+      .dots {
+        right: .65rem;
+        gap: .55rem;
+      }
+
+      .arrow {
+        width: 30px;
+        height: 30px;
+        font-size: .8rem;
+      }
+      .arrow.prev { left: calc(50% - 37px); }
+      .arrow.next { left: calc(50% + 7px); }
+
+      .s1-content {
+        padding: 0 .9rem;
+      }
+      .s1-label {
+        font-size: .64rem;
+        letter-spacing: .22em;
+      }
+      .s1-photos {
+        gap: .9rem;
+        margin-bottom: 1.2rem;
+      }
+      .s1-photo {
+        width: 102px;
+        height: 136px;
+      }
+      .s1-date {
+        font-size: .72rem;
+        letter-spacing: .14em;
+      }
+
+      .s2-inner {
+        grid-template-columns: 1fr;
+        grid-template-rows: 30svh 1fr;
+        height: 100%;
+      }
+      .s2-photo-side {
+        height: 30svh;
+        min-height: 200px;
+        background: var(--charcoal);
+      }
+      .s2-photo-side img {
+        object-fit: contain;
+        object-position: center center;
+        background: var(--charcoal);
+      }
+      .s2-overlay {
+        background: linear-gradient(to top, rgba(44,44,44,.25), rgba(44,44,44,.35));
+      }
+      .s2-text-side {
+        justify-content: flex-start;
+        padding: 1rem 1rem calc(1.2rem + env(safe-area-inset-bottom, 0px));
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+      .s2-eyebrow {
+        font-size: .62rem;
+        letter-spacing: .24em;
+        margin-bottom: .9rem;
+      }
+      .s2-heading {
+        font-size: clamp(1.7rem, 7vw, 2.4rem);
+        margin-bottom: 1rem;
+      }
+      .s2-body {
+        max-width: 100%;
+        font-size: .84rem;
+        line-height: 1.72;
+      }
+
+      .s3-inner {
+        padding: 1rem 1rem calc(1.4rem + env(safe-area-inset-bottom, 0px));
+      }
+      .s3-top-photo {
+        width: min(230px, 72vw);
+        height: auto;
+        aspect-ratio: 240 / 160;
+        margin: 0 auto 1rem;
+      }
+      .s3-heading {
+        font-size: clamp(1.6rem, 6vw, 2.2rem);
+        margin-bottom: 1.3rem;
+      }
+      .s3-cards {
+        grid-template-columns: 1fr;
+        gap: .8rem;
+      }
+      .s3-card {
+        padding: 1.1rem .95rem;
+      }
+      .s3-card-icon {
+        font-size: 1.35rem;
+        margin-bottom: .55rem;
+      }
+      .s3-card-main {
+        font-size: 1.12rem;
+      }
+
+      .s4-inner {
+        padding: 0 1rem;
+      }
+      .s4-quote {
+        font-size: clamp(1.2rem, 5.8vw, 1.8rem);
+      }
+      .s4-sub {
+        font-size: .72rem;
+        margin-bottom: 1.8rem;
+      }
+      .s4-rsvp {
+        padding: .78rem 2rem;
+        font-size: .7rem;
+      }
+      .s4-names-small {
+        font-size: 1rem;
+        margin-top: 1.8rem;
+      }
+    }
+
+    @media (max-width: 380px) {
+      .s2-inner {
+        grid-template-rows: 34svh 1fr;
+      }
+      .s2-photo-side {
+        min-height: 180px;
+      }
+      .s2-photo-side img {
+        object-fit: contain;
+      }
+      .s3-top-photo {
+        width: 82vw;
+      }
+      .arrow.prev { left: calc(50% - 35px); }
+      .arrow.next { left: calc(50% + 5px); }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -464,13 +608,13 @@
         <div class="s3-card">
           <div class="s3-card-icon">🕐</div>
           <p class="s3-card-title">Waktu</p>
-          <p class="s3-card-main">11.00 – 22.00 WIB</p>
-          <p class="s3-card-sub">Resepsi mulai pukul 11.00</p>
+          <p class="s3-card-main">Sesi 1: 15.00 – 16.00 WIB<br>Sesi 2: 16.00 – 18.00 WIB</p>
+          <p class="s3-card-sub">Resepsi mulai pukul 15.00</p>
         </div>
         <div class="s3-card">
           <div class="s3-card-icon">📍</div>
           <p class="s3-card-title">Lokasi</p>
-          <p class="s3-card-main">Chandranala  </p>
+          <p class="s3-card-main">Chandranala</p>
           <p class="s3-card-sub">Jl. tiga Serangkai <br>Ambarawa, Jawa Tengah</p>
         </div>
       </div>
@@ -487,11 +631,12 @@
     </div>
   </section>
 
-</div><script>
+</div>
+
+<script>
   const total = 4;
   let current = 0;
 
-  // Build dots
   const dotsEl = document.getElementById('dots');
   for (let i = 0; i < total; i++) {
     const d = document.createElement('button');
@@ -503,30 +648,30 @@
 
   function goTo(n) {
     current = Math.max(0, Math.min(total - 1, n));
-    document.getElementById('slider').style.transform = `translateX(-${current * 100}vw)`;
+    const slideWidth = document.querySelector('.slide').getBoundingClientRect().width;
+    document.getElementById('slider').style.transform = `translateX(-${current * slideWidth}px)`;
     document.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === current));
     document.getElementById('prev').disabled = current === 0;
     document.getElementById('next').disabled = current === total - 1;
   }
+
   function go(dir) { goTo(current + dir); }
 
-  // Keyboard
   document.addEventListener('keydown', e => {
     if (e.key === 'ArrowRight') go(1);
-    if (e.key === 'ArrowLeft')  go(-1);
+    if (e.key === 'ArrowLeft') go(-1);
   });
 
-  // Touch swipe
   let tx = 0;
   document.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, { passive: true });
-  document.addEventListener('touchend',   e => {
+  document.addEventListener('touchend', e => {
     const dx = tx - e.changedTouches[0].clientX;
     if (Math.abs(dx) > 50) go(dx > 0 ? 1 : -1);
   }, { passive: true });
 
+  window.addEventListener('resize', () => goTo(current));
   goTo(0);
 
-  // Generate petals for slide 4
   const petalsEl = document.getElementById('petals');
   for (let i = 0; i < 22; i++) {
     const p = document.createElement('div');
